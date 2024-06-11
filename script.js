@@ -1,6 +1,8 @@
 const input = document.getElementById("input");
 const list = document.getElementById("list");
 
+show();
+
 function add(){
     if(input.value===''){
         alert("Incorrect input");
@@ -14,13 +16,24 @@ function add(){
         li.appendChild(span);
     }
     input.value="";
+    save();
 }
 
 list.addEventListener("click", function(e){
     if(e.target.tagName==="LI"){
         e.target.classList.toggle("checked");
+        save();
     }
     else if(e.target.tagName==="SPAN"){
         e.target.parentElement.remove();
+        save();
     }
 }, false);
+
+function save(){
+    localStorage.setItem("data", list.innerHTML)
+}
+
+function show(){
+    list.innerHTML = localStorage.getItem("data");
+}
